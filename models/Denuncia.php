@@ -1,5 +1,6 @@
 <?php
 require_once 'AcoesDenuncia.php';
+include_once '../config/conecta.php';
 
 class Denuncia implements AcoesDenuncia
 {
@@ -16,7 +17,10 @@ class Denuncia implements AcoesDenuncia
     //Incluindo funções da interface: AcoesDenuncia
     public function salvar()
     {
-       //salva no banco de dados
+       $sql = "INSERT INTO denuncias(titulo, descricao, imagem) VALUES (?,?,?)";
+       $consulta = $con->prepare($sql);
+       $consulta->bind_param("sss",$this->titulo,$this->descricao,$this->imagem);
+       $consulta->execute();
     }
     public function mostrar()
     {
