@@ -1,10 +1,19 @@
-<?php
-require_once "models/Denuncia.php";
-include 'config/conecta.php';
+<!DOCTYPE html>
+<html lang="pt-br">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denuncia_Web</title>
+</head>
 
-$d1 = new Denuncia($con, 'Buraco que está causando problemas na minha rua', 'uploads/teste.jpg', 'Rua Josina Joaquina De Souza, 155');
-var_dump($d1);
-$d1->mostrar();
-echo $d1->mostrar();
-?>
+<body>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <input type="text" name="descricao">
+        <input type="file" name="imagem">
+        <input type="text" name="endereco">
+        <input type="submit">
+    </form>
+</body>
+
+</html>
