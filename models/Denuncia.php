@@ -1,25 +1,26 @@
 <?php
 require_once 'AcoesDenuncia.php';
-include_once '../config/conecta.php';
 
 class Denuncia implements AcoesDenuncia
 {
-    private $titulo;
     private $descricao;
     private $imagem;
+    private $endereco;
+    private $con;
 
-    public function __construct($titulo, $descricao, $imagem)
+    public function __construct($con, $descricao, $imagem, $endereco)
     {
-        $this->setTitulo($titulo);
+        $this->con = $con;
         $this->setDescricao($descricao);
         $this->setImagem($imagem);
+        $this->setEndereco($endereco);
     }
     //Incluindo funções da interface: AcoesDenuncia
     public function salvar()
     {
-       $sql = "INSERT INTO denuncias(titulo, descricao, imagem) VALUES (?,?,?)";
-       $consulta = $con->prepare($sql);
-       $consulta->bind_param("sss",$this->titulo,$this->descricao,$this->imagem);
+       $sql = "INSERT INTO denuncia(descricao_dnc, imagem_dnc, endereco_dnc) VALUES (?,?,?)";
+       $consulta = $this->con->prepare($sql);
+       $consulta->bind_param("sss",$this->descricao,$this->imagem, $this->endereco);
        $consulta->execute();
     }
     public function mostrar()
@@ -28,14 +29,6 @@ class Denuncia implements AcoesDenuncia
         //Pode ser usado na tela de confirmar o registro da denuncia.
     }
     // getters e setters
-    function getTitulo()
-    {
-        return $this->titulo;
-    }
-    function setTitulo($titulo)
-    {
-        $this->titulo = $titulo;
-    }
     function getDescricao()
     {
         return $this->descricao;
@@ -51,6 +44,14 @@ class Denuncia implements AcoesDenuncia
     function setImagem($imagem)
     {
         $this->imagem = $imagem;
+    }
+    function getEndereco()
+    {
+        return $this->endereco;
+    }
+    function setEndereco($endereco)
+    {
+        $this->endereco = $endereco;
     }
 }
 ?>
