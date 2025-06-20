@@ -8,12 +8,12 @@ class Denuncia implements AcoesDenuncia
     private $endereco;
     private $con;
 
-    public function __construct($con, $descricao, $imagem, $endereco)
+    public function __construct($con, $dados)
     {
         $this->con = $con;
-        $this->setDescricao($descricao);
-        $this->setImagem($imagem);
-        $this->setEndereco($endereco);
+        $this->setDescricao($dados['descricao']);
+        $this->setImagem($dados['imagem']);
+        $this->setEndereco($dados['endereco']);
     }
     //Incluindo funções da interface: AcoesDenuncia
     public function salvar()
