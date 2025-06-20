@@ -1,6 +1,6 @@
 <?php
-require_once("controllers/DenunciaController.php");
 require_once("config/conecta.php");
+require_once("classes/Denuncia.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dados = [
@@ -8,11 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "imagem" => $_POST["imagem"],
         "endereco" => $_POST["endereco"],
     ];
-
-    $denuncia = new DenunciaController($con, $dados);
-    $denuncia->confirma();
-
-    var_dump($denuncia);
 }
 ?>
 
