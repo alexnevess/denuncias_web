@@ -1,16 +1,3 @@
-<?php
-require_once("config/conecta.php");
-require_once("classes/Denuncia.php");
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $dados = [
-        "descricao" => $_POST["descricao"],
-        "imagem" => $_POST["imagem"],
-        "endereco" => $_POST["endereco"],
-    ];
-}
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -21,10 +8,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="actions/salva_denuncia.php" method="POST" enctype="multipart/form-data">
         <input type="text" name="descricao">
-        <input type="text" name="imagem">
+        <input type="file" name="imagem">
         <input type="text" name="endereco">
+        <input type="hidden" name="confirma" value="0">
         <input type="submit">
     </form>
 </body>
