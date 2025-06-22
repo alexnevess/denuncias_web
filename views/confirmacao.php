@@ -13,7 +13,7 @@ echo $imagem;
     <img src="../tmp/<?=$imagem?>">
     <form action="../actions/salva_denuncia.php" method="POST" enctype="multipart/form-data">
         <input type="text" name="descricao" value="<?=$dados['descricao']?>">
-        <input type="text" name="endereco" value="<?=$dados['descricao']?>">
+        <input type="text" name="endereco" value="<?=$dados['endereco']?>">
         <input type="hidden" name="confirma" value="1">
         <input type="submit">
     </form>
