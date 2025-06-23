@@ -1,5 +1,6 @@
 <?php
 require_once 'AcoesDenuncia.php';
+require_once '../config/conecta.php';
 
 class Denuncia implements AcoesDenuncia
 {
@@ -8,25 +9,32 @@ class Denuncia implements AcoesDenuncia
     private $endereco;
     private $con;
 
-    public function __construct($con, $dados)
+    public function __construct($con)
     {
         $this->con = $con;
+    }
+    //Incluindo funções da interface: AcoesDenuncia
+    public function salvar($dados)
+    {
         $this->setDescricao($dados['descricao']);
         $this->setImagem($dados['imagem']);
         $this->setEndereco($dados['endereco']);
+
+        $sql = "INSERT INTO denuncia(descricao_dnc, imagem_dnc, endereco_dnc) VALUES (?,?,?)";
+        $consulta = $this->con->prepare($sql);
+        $consulta->bind_param("sss", $this->descricao, $this->imagem, $this->endereco);
+        $consulta->execute();
     }
-    //Incluindo funções da interface: AcoesDenuncia
-    public function salvar()
+    public function mostrar($limite, $offset)
     {
-       $sql = "INSERT INTO denuncia(descricao_dnc, imagem_dnc, endereco_dnc) VALUES (?,?,?)";
-       $consulta = $this->con->prepare($sql);
-       $consulta->bind_param("sss",$this->descricao,$this->imagem, $this->endereco);
-       $consulta->execute();
+        return $sql = $this->con->query("SELECT descricao_dnc, endereco_dnc, imagem_dnc, data_dnc FROM denuncia ORDER BY id_dnc DESC LIMIT $limite OFFSET $offset ");  
     }
-    public function mostrar()
+
+    public function quantidade_denuncias()
     {
-        //retorna as informações que estão no objetos.
-        //Pode ser usado na tela de confirmar o registro da denuncia.
+        $sql = $this->con->query("SELECT count(*) as total FROM denuncia");
+        $resultado = $sql->fetch_assoc();
+        return $resultado['total'];
     }
     // getters e setters
     function getDescricao()
@@ -54,4 +62,5 @@ class Denuncia implements AcoesDenuncia
         $this->endereco = $endereco;
     }
 }
+$denuncia = new Denuncia($con);
 ?>

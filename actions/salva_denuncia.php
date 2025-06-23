@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+require_once("../config/conecta.php");
+require_once("../classes/Denuncia.php");
+
 $caminho_uploads = '../uploads/';
 $caminho_tmp = "../tmp/";
 
@@ -18,9 +21,6 @@ function arquivo_existe($nome, $caminho)//Sanitiza o nome da imagem e testa se e
     }
     return $destino;
 }
-
-require_once("../config/conecta.php");
-require_once("../classes/Denuncia.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -51,10 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "endereco" => $dados['endereco'],
         ];
 
-        $denuncia = new Denuncia($con, $dados_confirmados);
-        $denuncia->salvar();//salva no BD
+        $denuncia->salvar($dados_confirmados);//salva no BD
+        header("Location: ../views/denuncias.php");
+        exit;
+        
     } elseif ($dados['confirma'] == "-1") {
-        unlink($caminho_tmp . $_SESSION['tmp_imagem']);
+        unlink($caminho_tmp . $_SESSION['tmp_imagem']);//Exclui a imagem da pasta temporária se o usuário cancelar
         session_destroy();
         header("Location: ../index.php");
         exit;
