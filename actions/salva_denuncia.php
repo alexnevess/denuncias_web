@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($dados['confirma'] == 0) {
         if ($_FILES["imagem"]["error"] === 0) {
             $nome_arquivo = $_FILES['imagem']['name'];
-            $destino = arquivo_existe($nome_arquivo,$caminho_tmp);
+            $destino = arquivo_existe($nome_arquivo, $caminho_tmp);
         }
         $movido = move_uploaded_file($_FILES['imagem']['tmp_name'], '../tmp/' . $destino);//move a imagem para a pasta temporária
         $_SESSION['tmp_imagem'] = $destino;//Mantém a imagem através de session
@@ -53,6 +53,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $denuncia = new Denuncia($con, $dados_confirmados);
         $denuncia->salvar();//salva no BD
+    } elseif ($dados['confirma'] == "-1") {
+        unlink($caminho_tmp . $_SESSION['tmp_imagem']);
+        session_destroy();
+        header("Location: ../index.php");
+        exit;
+    } else {
+        echo "erro";
     }
 }
 ?>

@@ -12,7 +12,12 @@ $imagem = $_SESSION["tmp_imagem"] ?? null;
     <p><?=$dados['descricao']?></p>
     <p><?=$dados['endereco']?></p>
     <img src="../tmp/<?=$imagem?>">
-    <form action="../actions/salva_denuncia.php" method="POST" enctype="multipart/form-data">
+    
+    <form action="../actions/salva_denuncia.php" method="POST">
+        <input type="hidden" name="confirma" value="-1">
+        <input type="submit">
+    </form>
+    <form action="../actions/salva_denuncia.php" method="POST">
         <input type="hidden" name="descricao" value="<?=$dados['descricao']?>">
         <input type="hidden" name="endereco" value="<?=$dados['endereco']?>">
         <input type="hidden" name="confirma" value="1">
