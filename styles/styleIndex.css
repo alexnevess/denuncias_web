@@ -1,0 +1,16 @@
+.mainIndex{
+    max-width: 40%;
+    margin: auto;
+    background-color: #106EBE;
+    margin-top: 60px;
+    padding: 15px;
+}
+.formDenuncia{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.inputDenuncia{
+    
+}

@@ -1,0 +1,21 @@
+.mainDen
+{
+    max-width: 40%;
+    margin: auto;
+}
+
+.textoDen
+{
+    font-size: 20px;
+}
+
+.imgDen
+{
+    width: 100%;
+}
+
+.cardDen
+{
+    border: solid 2px rgb(200, 200, 200);
+    margin: 10px;
+}

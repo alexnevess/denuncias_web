@@ -15,13 +15,13 @@ $imagem = $_SESSION["tmp_imagem"] ?? null;
     
     <form action="../actions/salva_denuncia.php" method="POST">
         <input type="hidden" name="confirma" value="-1">
-        <input type="submit">
+        <input type="submit" value="cancelar">
     </form>
     <form action="../actions/salva_denuncia.php" method="POST">
         <input type="hidden" name="descricao" value="<?=$dados['descricao']?>">
         <input type="hidden" name="endereco" value="<?=$dados['endereco']?>">
         <input type="hidden" name="confirma" value="1">
-        <input type="submit">
+        <input type="submit" value="Confirmar">
     </form>
 </body>
 </html>
