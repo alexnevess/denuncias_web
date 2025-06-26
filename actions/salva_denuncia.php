@@ -34,16 +34,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($_FILES["imagem"]["error"] === 0) {
             $nome_arquivo = $_FILES['imagem']['name'];
             $destino = sanitiza_imagem($nome_arquivo, $caminho_tmp);
+            $movido = move_uploaded_file($_FILES['imagem']['tmp_name'], '../tmp/' . $destino); //move a imagem para a pasta temporária
+            $_SESSION['tmp_imagem'] = $destino; //Mantém a imagem através de session
         }
-        $movido = move_uploaded_file($_FILES['imagem']['tmp_name'], '../tmp/' . $destino); //move a imagem para a pasta temporária
-        $_SESSION['tmp_imagem'] = $destino; //Mantém a imagem através de session
-
-        include '../views/confirmacao.php'; //view para a confrimação do formulário
+        include '../views/confirmacao.php'; //view para a confirmação do formulário
 
     } elseif ($dados['confirma'] == 1) {
+        if(isset($_SESSION['tmp_imagem']))
+        {
         $imagem_nome = $_SESSION['tmp_imagem']; //Salva o nome da imagem que está em session em uma vriável
         $destino_uploads = sanitiza_imagem($imagem_nome, $caminho_uploads); //sanitiza e testa se existe com a função arquivo_existe
         rename($caminho_tmp . $imagem_nome, $caminho_uploads . $destino_uploads); //move a imagem da pasta temporária para upoload
+        }
+        else{
+            $destino_uploads = null;
+        }
 
         $dados_confirmados = [ //Cria um array sanitizado para criar o objeto denúncia
             "descricao" => $dados['descricao'],
@@ -52,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ];
 
         $denuncia->salvar($dados_confirmados); //salva no BD
-        header("Location: ../views/denuncias.php");
+        header("Location: ../views/sucesso.php");
         exit;
     } elseif ($dados['confirma'] == "-1") {
         unlink($caminho_tmp . $_SESSION['tmp_imagem']); //Exclui a imagem da pasta temporária se o usuário cancelar

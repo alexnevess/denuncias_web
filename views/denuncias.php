@@ -1,7 +1,7 @@
 <?php
 require_once("../classes/Denuncia.php");
 
-if (isset($_GET['pagina'])) {
+if (isset($_GET['pagina'])) { 
     $pagina = (int) $_GET['pagina'];
 } else {
     $pagina = 0;
@@ -34,7 +34,10 @@ $resultado_bd = $denuncia->mostrar($limite, $offset);
     while ($resultado = $resultado_bd->fetch_assoc()) {
         echo "<div class = 'cardDen'>";
         echo "<p class = 'textoDen'>".$resultado['descricao_dnc']."</p>";
+        if(isset($resultado['imagem_dnc']))
+        {
         echo "<img class = 'imgDen' src='../uploads/" . $resultado['imagem_dnc'] . "'>";
+        }
         echo "<p class = 'textoDen'>".$resultado['endereco_dnc']."</p>";
         echo "</div class = 'cardDen'>";
         

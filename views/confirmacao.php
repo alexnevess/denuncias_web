@@ -11,7 +11,10 @@ $imagem = $_SESSION["tmp_imagem"] ?? null;
 <body>
     <p><?=$dados['descricao']?></p>
     <p><?=$dados['endereco']?></p>
+    <?php if(isset($imagem))
+    {?>
     <img src="../tmp/<?=$imagem?>">
+    <?php }?>
     
     <form action="../actions/salva_denuncia.php" method="POST">
         <input type="hidden" name="confirma" value="-1">
