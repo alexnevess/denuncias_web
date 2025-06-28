@@ -24,6 +24,9 @@ function sanitiza_imagem($nome, $caminho) //Sanitiza o nome da imagem e testa se
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    if (!isset($_POST['descricao'])) {
+        header("Location: ../index.php?erro=1");
+    }
     $dados = [
         "descricao" => $_POST["descricao"] ?? "",
         "endereco" => $_POST["endereco"] ?? "",
@@ -40,13 +43,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         include '../views/confirmacao.php'; //view para a confirmação do formulário
 
     } elseif ($dados['confirma'] == 1) {
-        if(isset($_SESSION['tmp_imagem']))
-        {
-        $imagem_nome = $_SESSION['tmp_imagem']; //Salva o nome da imagem que está em session em uma vriável
-        $destino_uploads = sanitiza_imagem($imagem_nome, $caminho_uploads); //sanitiza e testa se existe com a função arquivo_existe
-        rename($caminho_tmp . $imagem_nome, $caminho_uploads . $destino_uploads); //move a imagem da pasta temporária para upoload
-        }
-        else{
+        if (isset($_SESSION['tmp_imagem'])) {
+            $imagem_nome = $_SESSION['tmp_imagem']; //Salva o nome da imagem que está em session em uma vriável
+            $destino_uploads = sanitiza_imagem($imagem_nome, $caminho_uploads); //sanitiza e testa se existe com a função arquivo_existe
+            rename($caminho_tmp . $imagem_nome, $caminho_uploads . $destino_uploads); //move a imagem da pasta temporária para upoload
+        } else {
             $destino_uploads = null;
         }
 
