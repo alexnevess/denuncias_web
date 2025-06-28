@@ -1,0 +1,24 @@
+header{
+    background-color: #106EBE;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+
+ul{
+    display: flex;
+    list-style: none;
+    gap: 10px;
+}
+
+.linkDen{
+    background-color: red;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
